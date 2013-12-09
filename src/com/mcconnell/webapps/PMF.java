@@ -1,7 +1,8 @@
-package com.mcconnell.webapps.modernwar.model;
+package com.mcconnell.webapps;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
+
 
 public final class PMF {
     private static final PersistenceManagerFactory pmfInstance =
@@ -12,4 +13,5 @@ public final class PMF {
     public static PersistenceManagerFactory get() {
         return pmfInstance;
     }
+
 }

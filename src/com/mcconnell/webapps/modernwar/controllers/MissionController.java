@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.mcconnell.webapps.PMF;
 import com.mcconnell.webapps.modernwar.model.Level;
 import com.mcconnell.webapps.modernwar.model.Mission;
-import com.mcconnell.webapps.modernwar.model.PMF;
 
 @Controller
 @RequestMapping("/modernwar/missions")

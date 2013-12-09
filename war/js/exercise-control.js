@@ -74,6 +74,7 @@ $(document).ready(init);
 function init() {
 	exercise_step();
 	$('#newExerciseSubmit').click(function() {
-		add_exercise_step();
+		exercise_json = '{"name":"test1","steps":["step1","step2"],"updatedOn":1386371932948}';
+		DATA_HANDLER.put['exercise']();
 	});
 }
