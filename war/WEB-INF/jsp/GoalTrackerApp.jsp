@@ -25,9 +25,6 @@
 	<script type="text/x-handlebars" id="goal">
 		<%@ include file="goal-tracker/GoalView.jsp"%>
 	</script>
-	<script type="text/x-handlebars" id="new">
-		<%@ include file="goal-tracker/NewGoalView.jsp"%>
-	</script>
 	<script type="text/x-handlebars" id="goal/edit">
 		<%@ include file="goal-tracker/GoalEditView.jsp"%>
 	</script>
@@ -36,6 +33,9 @@
 	</script>
 	<script type="text/x-handlebars" id="progress">
 		<%@ include file="goal-tracker/ProgressView.jsp"%>
+	</script>
+	<script type="text/x-handlebars" id="journal-entries">
+		<%@ include file="goal-tracker/JournalView.jsp"%>
 	</script>
 </body>
 </html>

@@ -5,7 +5,7 @@
 				<h3>
 					Goals
 					<button type="button" class="btn btn-default btn-xs"
-						{{action 'startNew' target="controllers.goal"}}>&#43;</button>
+						{{action 'addNew'}}>&#43;</button>
 				</h3>
 			</div>
 			<table class="table">
@@ -27,4 +27,3 @@
 		{{outlet}}
 	</div>
 </div>
->

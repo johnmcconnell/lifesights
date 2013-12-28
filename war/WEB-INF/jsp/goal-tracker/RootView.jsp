@@ -8,6 +8,7 @@
 		<ul class="nav navbar-nav">
 			<li class="active"><a href="#/goals">Goals</a></li>
 			<li><a href="#/progress">Progress</a></li>
+			<li><a href="#/journal-entries">Journal</a></li>
 
 		</ul>
 		<form class="navbar-form navbar-left" role="search">

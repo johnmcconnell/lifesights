@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans     
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -10,8 +11,10 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-	<bean class="com.mcconnell.webapps.goaltracker.controllers.GoalController">
-	</bean>
+    <!-- Controller Classes -->
+    <bean class="com.mcconnell.webapp.goaltracker.controllers.AppUserController" />
+	<bean class="com.mcconnell.webapp.goaltracker.controllers.GoalController" />
+	<bean class="com.mcconnell.webapp.goaltracker.controllers.AppController" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
