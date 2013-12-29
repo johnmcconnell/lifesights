@@ -12,9 +12,11 @@
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
     <!-- Controller Classes -->
+    <bean class="com.mcconnell.webapp.blog.BlogController" />
     <bean class="com.mcconnell.webapp.goaltracker.controllers.AppUserController" />
 	<bean class="com.mcconnell.webapp.goaltracker.controllers.GoalController" />
 	<bean class="com.mcconnell.webapp.goaltracker.controllers.AppController" />
+	<bean class="com.mcconnell.webapp.goaltracker.controllers.JournalController" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

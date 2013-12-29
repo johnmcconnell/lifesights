@@ -37,5 +37,17 @@
 	<script type="text/x-handlebars" id="journal-entries">
 		<%@ include file="goal-tracker/JournalView.jsp"%>
 	</script>
+		<script type="text/x-handlebars" id="journal-entry">
+		<%@ include file="goal-tracker/JournalEntryView.jsp"%>
+	</script>
+		<script type="text/x-handlebars" id="journal-entry/edit">
+		<%@ include file="goal-tracker/JournalEntryEditView.jsp"%>
+	</script>
+	<script type="text/x-handlebars" id="sign-in">
+		<%@ include file="goal-tracker/SignIn.jsp"%>
+	</script>
+	<script type="text/x-handlebars" id="sign-up">
+		<%@ include file="goal-tracker/SignUp.jsp"%>
+	</script>
 </body>
 </html>

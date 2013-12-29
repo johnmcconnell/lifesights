@@ -19,8 +19,8 @@
 		</form>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="#/about">About</a></li>
-			<li><a href="#">sign in</a></li>
-			<li><a href="#">sign up</a></li>
+			<li><a href="#/sign-in">sign in</a></li>
+			<li><a href="#/sign-up">sign up</a></li>
 		</ul>
 	</div>
 </nav>
