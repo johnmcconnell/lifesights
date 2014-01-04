@@ -7,114 +7,17 @@ This library was designed for using ajax and json to send database objects to th
 A quick example:
 
 The controller:
-`package com.mcconnell.webapp.goaltracker.controllers;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.mcconnell.webapp.DataController;
-
-@Controller
-@RequestMapping(JournalController.BASE_URL)
-public class JournalController extends DataController<Journal> {
-	public static final Class<Journal> CLASS = Journal.class;
-	public static final String BASE_URL = "/goaltracker/journal";
-
-	public JournalController() {
-		super(CLASS);
-	}
-}`
+look at com.mcconnell.goaltracker.controller.JournalController.java
 
 The model:
-`package com.mcconnell.webapp.goaltracker.model;
-
-import java.util.Date;
-import java.util.logging.Logger;
-
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
-
-import com.mcconnell.webapp.DataObject;
-
-@PersistenceCapable(detachable = "true")
-public class Journal extends DataObject {
-	@Persistent
-	private String title;
-	@Persistent
-	private String author;
-	@Persistent
-	private String markdown;
-	@Persistent
-	private boolean published;
-	
-
-	public Journal(String title, String author, String markdown, boolean published) {
-		super();
-		this.title = title;
-		this.author = author;
-		this.markdown = markdown;
-		this.published = published;
-	}
-
-
-	@Override
-	public void update(DataObject from) {
-		if (getClass() != from.getClass()) {
-			return;
-		}
-		Journal other = (Journal) from;
-		this.setTitle(other.getTitle());
-		this.setAuthor(other.getAuthor());
-		this.setMarkdown(other.getMarkdown());
-		this.setPublished(other.getPublished());
-		this.setUpdatedOn(new Date());
-	}
-
-
-	public String getTitle() {
-		return title;
-	}
-
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-
-	public String getAuthor() {
-		return author;
-	}
-
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-
-	public String getMarkdown() {
-		return markdown;
-	}
-
-
-	public void setMarkdown(String markdown) {
-		this.markdown = markdown;
-	}
-
-	public boolean getPublished() {
-		return published;
-	}
-
-	public void setPublished(boolean published) {
-		this.published = published;
-	}
-
-}`
+look at com.mcconnell.goaltracker.model.Journal.java
 
 Tell spring mvc to host the controller
 edit the mvc-dispatcher-servlet.xml example:
-<!-- Tell Spring to host controller -->
-<bean class="com.mcconnell.webapp.goaltracker.controllers.JournalController" />
+> <!-- Tell Spring to host controller -->
+> <bean class="com.mcconnell.webapp.goaltracker.controllers.JournalController" />
 
 With these changes:
 there will be api to http handlers to get, add, update the objects.
-
+You can see some of the api used in
+war/js/goal-tracker-app.js
