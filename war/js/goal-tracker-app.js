@@ -34,7 +34,7 @@ GoalApp.JournalEntriesRoute = Ember.Route.extend({
 		controller.set('model', entries);
 	},
 	model : function() {
-		return $.getJSON('goaltracker/journal/api/all');;
+		return $.getJSON('goaltracker/journal/api/all');
 	}
 });
 
@@ -212,6 +212,7 @@ function JournalEntry() {
 	this.author = "Author";
 	this.title = "Title";
 	this.markdown = "markdown";
+	this.published = false;
 	var now = new Date();
 	this.updatedOn = now.getTime();
 }

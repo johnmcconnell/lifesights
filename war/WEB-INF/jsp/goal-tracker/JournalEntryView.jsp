@@ -1,0 +1,16 @@
+<div class="col-md-4">
+{{#if isEditing}}
+	{{partial 'journal-entry/edit'}}
+	<button {{action 'cancel'}}>Cancel</button>
+	<button {{action 'save'}}>Save</button>
+{{else}}
+	<button {{action 'edit'}}>Edit</button>
+{{/if}}
+</div>
+
+<div class="col-md-4">
+<h2>{{title}}</h2>
+<h4>By:{{author}}</h4>
+<small class="muted">updated {{pretty-date updatedOn}}</small>
+<div>{{format-markdown markdown}}</div>
+</div>
