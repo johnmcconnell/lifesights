@@ -1,4 +1,4 @@
-package com.mcconnell.webapp;
+package com.boost.webapp;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mcconnell.utils.Utils;
-import com.mcconnell.utils.PasswordHash;
+import com.boost.utils.PasswordHash;
+import com.boost.utils.Utils;
 
 public abstract class UserController<T extends UserObject> {
 	private static final Logger log = Logger.getLogger(UserController.class

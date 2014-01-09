@@ -1,4 +1,4 @@
-package com.mcconnell.webapp;
+package com.boost.webapp;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;

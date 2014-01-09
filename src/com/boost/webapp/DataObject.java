@@ -1,4 +1,4 @@
-package com.mcconnell.webapp;
+package com.boost.webapp;
 
 import java.util.ArrayList;
 import java.util.Date;

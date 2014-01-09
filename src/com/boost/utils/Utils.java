@@ -1,4 +1,4 @@
-package com.mcconnell.utils;
+package com.boost.utils;
 
 import java.io.IOException;
 
