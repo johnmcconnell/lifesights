@@ -1,4 +1,4 @@
-package com.boost.webapp;
+package com.lifesights.webapp;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;

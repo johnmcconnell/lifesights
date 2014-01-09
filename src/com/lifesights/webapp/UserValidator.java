@@ -1,4 +1,4 @@
-package com.boost.webapp;
+package com.lifesights.webapp;
 
 import java.util.List;
 

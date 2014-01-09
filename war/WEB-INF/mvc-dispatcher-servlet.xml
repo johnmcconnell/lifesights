@@ -12,7 +12,7 @@
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
     <!-- Controller Classes -->
-    <bean class="com.boost.ExampleController" />
+    <bean class="com.lifesights.example.ExampleController" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

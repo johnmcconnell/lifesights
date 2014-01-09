@@ -1,4 +1,4 @@
-package com.boost.webapp;
+package com.lifesights.webapp;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.boost.utils.PasswordHash;
-import com.boost.utils.Utils;
+import com.lifesights.utils.PasswordHash;
+import com.lifesights.utils.Utils;
 
 public abstract class UserController<T extends UserObject> {
 	private static final Logger log = Logger.getLogger(UserController.class

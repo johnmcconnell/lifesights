@@ -1,4 +1,4 @@
-package com.boost.utils;
+package com.lifesights.utils;
 
 import java.io.IOException;
 

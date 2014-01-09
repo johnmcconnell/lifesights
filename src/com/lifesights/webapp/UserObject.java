@@ -1,4 +1,4 @@
-package com.boost.webapp;
+package com.lifesights.webapp;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;

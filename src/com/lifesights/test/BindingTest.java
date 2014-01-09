@@ -1,4 +1,4 @@
-package com.boost.test;
+package com.lifesights.test;
 
 import static org.junit.Assert.*;
 
@@ -9,8 +9,8 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 
-import com.boost.utils.Utils;
-import com.boost.webapp.UserObject;
+import com.lifesights.utils.Utils;
+import com.lifesights.webapp.UserObject;
 
 public class BindingTest {
 	private String json = "{\"username\":\"john\",\"password\":\"willy321\"}";
