@@ -8,6 +8,7 @@ import javax.jdo.annotations.Persistent;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import com.google.appengine.api.datastore.Text;
 import com.mcconnell.webapp.DataObject;
 
 @PersistenceCapable(detachable = "true")
@@ -18,12 +19,11 @@ public class Journal extends DataObject {
 	@Persistent
 	private String author;
 	@Persistent
-	private String markdown;
+	private Text markdown;
 	@Persistent
 	private boolean published;
-	
 
-	public Journal(String title, String author, String markdown, boolean published) {
+	public Journal(String title, String author, Text markdown, boolean published) {
 		super();
 		this.title = title;
 		this.author = author;
@@ -67,12 +67,12 @@ public class Journal extends DataObject {
 
 
 	public String getMarkdown() {
-		return markdown;
+		return markdown.getValue();
 	}
 
 
 	public void setMarkdown(String markdown) {
-		this.markdown = markdown;
+		this.markdown = new Text(markdown);
 	}
 
 	public boolean getPublished() {
