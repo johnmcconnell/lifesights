@@ -1,0 +1,12 @@
+{
+	"model":{
+		"name":"Journal",
+		"data":["String:author",
+			"String:title",
+			"Text:something",
+			"boolean:published",
+			"List<String>:tags"
+			],
+		"url":"api/model/journal"
+		}
+}
