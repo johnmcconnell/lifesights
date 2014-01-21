@@ -16,7 +16,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 @SessionAttributes("session")
 public abstract class DataController<T extends DataObject> {
-	public static final String DATA_PATH = "api";
+	public static final String CREATE_URL = "create";
+	public static final String CREATEL_URL = "createAll";
+	public static final String READ_URL = "read";
+	public static final String READL_URL = "readAll";
+	public static final String UPDATE_URL = "update";
+	public static final String UPDATEL_URL = "updateAll";
+	public static final String DELETE = "delete";
+	public static final String DELETEL_URL = "deleteAll";
 	private final Class<T> CLASS;
 	private UserValidator<T,UserObject> validator;
 
@@ -24,13 +31,13 @@ public abstract class DataController<T extends DataObject> {
 		this.CLASS = _class;
 	}
 
-	@RequestMapping(value = DATA_PATH, method = RequestMethod.POST)
+	@RequestMapping(value = CREATE_URL, method = RequestMethod.POST)
 	public @ResponseBody
-	TransactionResponse addObject(@RequestBody final T object) {
+	TransactionResponse createObject(@RequestBody final T object) {
 		return object.addToDatabase();
 	}
 
-	@RequestMapping(value = DATA_PATH + "/{key}", method = RequestMethod.PUT)
+	@RequestMapping(value = UPDATE_URL + "/{key}", method = RequestMethod.POST)
 	public @ResponseBody
 	TransactionResponse updateObject(@PathVariable final String key,
 			@RequestBody final T from) {
@@ -41,21 +48,21 @@ public abstract class DataController<T extends DataObject> {
 		return new TransactionResponse();
 	}
 
-	@RequestMapping(value = DATA_PATH + "/all", method = RequestMethod.POST)
+	@RequestMapping(value = CREATEL_URL, method = RequestMethod.POST)
 	public @ResponseBody
-	TransactionResponse addObjects(@RequestBody final List<T> objects) {
+	TransactionResponse createObjects(@RequestBody final List<T> objects) {
 		return DataObject.addAllToDatabase(objects);
 	}
 
-	@RequestMapping(value = DATA_PATH + "/all", method = RequestMethod.GET)
+	@RequestMapping(value = READL_URL, method = RequestMethod.GET)
 	public @ResponseBody
-	List<T> getObjects() {
+	List<T> readObjects() {
 		return DataObject.getDetachedObjects(CLASS);
 	}
 
-	@RequestMapping(value = DATA_PATH + "/{key}", method = RequestMethod.GET)
+	@RequestMapping(value = READ_URL + "/{key}", method = RequestMethod.GET)
 	public @ResponseBody
-	T getObject(@PathVariable String key) {
+	T readObject(@PathVariable String key) {
 		return DataObject.getDetachedObject(CLASS, key);
 	}
 

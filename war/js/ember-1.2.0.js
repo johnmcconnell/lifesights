@@ -2789,7 +2789,9 @@ function setPath(root, path, value, tolerant) {
 
   // get the last part of the path
   keyName = path.slice(path.lastIndexOf('.') + 1);
-
+  if (path == 'this') {
+	  keyName = 'this';
+  }
   // get the first part of the part
   path    = path.slice(0, path.length-(keyName.length+1));
 
@@ -2798,7 +2800,11 @@ function setPath(root, path, value, tolerant) {
   if (path !== 'this') {
     root = getPath(root, path);
   }
-
+  console.log('root: ' + root);
+  console.log('value: ' + value);
+  console.log('tolerant: ' + tolerant);
+  console.log('keyName: ' + keyName);
+  
   if (!keyName || keyName.length === 0) {
     throw new Ember.Error('You passed an empty path');
   }
@@ -2807,6 +2813,8 @@ function setPath(root, path, value, tolerant) {
     if (tolerant) { return; }
     else { throw new Ember.Error('Object in path '+path+' could not be found or was destroyed.'); }
   }
+  
+
 
   return set(root, keyName, value);
 }

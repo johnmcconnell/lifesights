@@ -12,7 +12,8 @@
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
     <!-- Controller Classes -->
-    <bean class="com.lifesights.example.ExampleController" />
+    <bean class="com.lifesights.example.AppController" />
+    <bean class="com.lifesights.example.JournalController" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

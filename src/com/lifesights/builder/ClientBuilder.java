@@ -7,11 +7,11 @@ public class ClientBuilder {
 			"\tvar LifeSights = new Object();\n" +
 			"}\n\n";
 	private static String createModelObject = "LifeSights.%s = new Object();\n\n";
-	private static String addAPI = "LifeSights.%1$s.add = function (model) {\n" +
+	private static String createAPI = "LifeSights.%1$s.create = function (model) {\n" +
 			"\tjson = JSON.stringify(model);\n" +
 			"\t$.ajax({\n" +
 				"\t\ttype : 'POST',\n" +
-				"\t\turl : '%2$s/add',\n" +
+				"\t\turl : '%2$s/create',\n" +
 				"\t\tdataType : 'json',\n" +
 				"\t\tdata : json,\n" +
 				"\t\tcontentType : 'application/json',\n" +
@@ -20,11 +20,11 @@ public class ClientBuilder {
 				"\t\tconsole.log(data);\n" +
 			"\t});\n" +
 		"}\n";
-	private static String addAllAPI ="LifeSights.%1$s.addAll = function (models) {\n" +
+	private static String createAllAPI ="LifeSights.%1$s.createAll = function (models) {\n" +
 			"\tjson = JSON.stringify(models);\n" +
 			"\t$.ajax({\n" +
 				"\t\ttype : 'POST',\n" +
-				"\t\turl : '%2$s/addAll',\n" +
+				"\t\turl : '%2$s/createAll',\n" +
 				"\t\tdataType : 'json',\n" +
 				"\t\tdata : json,\n" +
 				"\t\tcontentType : 'application/json',\n" +
@@ -46,7 +46,7 @@ public class ClientBuilder {
 				"\t\tconsole.log(data);\n" +
 			"\t});\n" +
 		"}\n";
-	private static String updateAllAPI = "LifeSights.%1$s.update = function (model) {\n" +
+	private static String updateAllAPI = "LifeSights.%1$s.updateAll = function (model) {\n" +
 			"\tjson = JSON.stringify(model);\n" +
 			"\t$.ajax({\n" +
 				"\t\ttype : 'POST',\n" +
@@ -85,17 +85,17 @@ public class ClientBuilder {
 				"\t\tconsole.log(data);\n" +
 			"\t});\n" +
 		"}\n";
-	private static String getAPI = "LifeSights.%1$s.get = new function({\n" +
-			"\treturn $.getJSON('%2$s/get');\n" +
+	private static String readAPI = "LifeSights.%1$s.read = new function({\n" +
+			"\treturn $.getJSON('%2$s/read');\n" +
 			"});\n";
-	private static String getAllAPI = "LifeSights.%1$s.getAll = new function({\n" +
-			"\treturn $.getJSON('%2$s/getAll');\n" +
+	private static String readAllAPI = "LifeSights.%1$s.readAll = new function({\n" +
+			"\treturn $.getJSON('%2$s/readAll');\n" +
 			"});\n";
 	private static String startNewAPI = "LifeSights.%1$s.new = new function({\n" +
 			"\treturn new Object({";
 	private static String vartype = "%s:%s,";
 	private static String endNewAPI = "});\n});\n";
-	private static String[] APIs = new String[] { addAPI, addAllAPI, updateAPI, getAPI, getAllAPI };
+	private static String[] APIs = new String[] { createAPI, createAllAPI, updateAPI, readAPI, readAllAPI };
 	public static String toJavaScript(AbstractModel model) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(createLib);

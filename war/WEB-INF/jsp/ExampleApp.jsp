@@ -9,45 +9,33 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description"
-	content="keep track of goals throughout your life">
+	content="Example application to show off LifeSights">
 <meta name="author" content="John McConnell">
 <%@ include file="../html/headerLibs.html"%>
-<t:javascript-link src="goal-tracker-app.js" />
-<title>Goal Tracker</title>
+<t:javascript-link src="example-app.js" />
+<title>Life Sights</title>
 </head>
 <body>
 	<script type="text/x-handlebars">
-		<%@ include file="goal-tracker/RootView.jsp"%>
-	</script>
-	<script type="text/x-handlebars" id="goals">
-		<%@ include file="goal-tracker/GoalsView.jsp"%>
-	</script>
-	<script type="text/x-handlebars" id="goal">
-		<%@ include file="goal-tracker/GoalView.jsp"%>
-	</script>
-	<script type="text/x-handlebars" id="goal/edit">
-		<%@ include file="goal-tracker/GoalEditView.jsp"%>
+		<%@ include file="subviews/RootView.jsp"%>
 	</script>
 	<script type="text/x-handlebars" id="about">
-		<%@ include file="goal-tracker/AboutView.jsp"%>
-	</script>
-	<script type="text/x-handlebars" id="progress">
-		<%@ include file="goal-tracker/ProgressView.jsp"%>
+		<%@ include file="subviews/AboutView.jsp"%>
 	</script>
 	<script type="text/x-handlebars" id="journal-entries">
-		<%@ include file="goal-tracker/JournalView.jsp"%>
+		<%@ include file="subviews/JournalView.jsp"%>
 	</script>
 		<script type="text/x-handlebars" id="journal-entry">
-		<%@ include file="goal-tracker/JournalEntryView.jsp"%>
+		<%@ include file="subviews/JournalEntryView.jsp"%>
 	</script>
 		<script type="text/x-handlebars" id="journal-entry/edit">
-		<%@ include file="goal-tracker/JournalEntryEditView.jsp"%>
+		<%@ include file="subviews/JournalEntryEditView.jsp"%>
 	</script>
 	<script type="text/x-handlebars" id="sign-in">
-		<%@ include file="goal-tracker/SignIn.jsp"%>
+		<%@ include file="subviews/SignIn.jsp"%>
 	</script>
 	<script type="text/x-handlebars" id="sign-up">
-		<%@ include file="goal-tracker/SignUp.jsp"%>
+		<%@ include file="subviews/SignUp.jsp"%>
 	</script>
 </body>
 </html>

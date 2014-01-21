@@ -1,13 +1,11 @@
 
 <nav class="navbar navbar-default" role="navigation">
 	<div class="navbar-header">
-		<a class="navbar-brand" href="#">Goal Tracker</a>
+		<a class="navbar-brand" href="#">LifeSights</a>
 	</div>
 	<div class="collapse navbar-collapse">
 
 		<ul class="nav navbar-nav">
-			<li class="active"><a href="#/goals">Goals</a></li>
-			<li><a href="#/progress">Progress</a></li>
 			<li><a href="#/journal-entries">Journal</a></li>
 
 		</ul>
