@@ -7,6 +7,7 @@ import java.util.List;
 import org.codehaus.jackson.JsonNode;
 
 public class AbstractModel {
+	private String dirPath;
 	private String name;
 	private String url;
 	private List<AbstractData> data;
@@ -34,7 +35,14 @@ public class AbstractModel {
 	public void setData(List<AbstractData> data) {
 		this.data = data;
 	}
-	
+
+	public String getDirPath() {
+		return dirPath;
+	}
+
+	public void setDirPath(String dirPath) {
+		this.dirPath = dirPath;
+	}
 
 	@Override
 	public String toString() {
@@ -43,17 +51,22 @@ public class AbstractModel {
 	}
 
 	public static AbstractModel toAbstractModel(JsonNode node) throws Exception {
-		node = node.get("model");
-		if (node == null)
-			throw new Exception("the model does not start with model field!");
 	
 		AbstractModel model = new AbstractModel();
-
+		
+		model.setDirPath(node.get("dir"));
 		model.setName(node.get("name"));
 		model.setUrl(node.get("url"));
 		model.setData(node.get("data"));
 
 		return model;
+	}
+
+	private void setDirPath(JsonNode dirNode) throws Exception {
+		if (dirNode == null) {
+			throw new Exception("the model does not have a dir field!");
+		}
+		this.setDirPath(dirNode.getTextValue());
 	}
 
 	public void setUrl(JsonNode urlNode) throws Exception {

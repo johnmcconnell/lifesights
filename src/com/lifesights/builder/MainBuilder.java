@@ -4,21 +4,34 @@ import japa.parser.ASTHelper;
 import japa.parser.JavaParser;
 import japa.parser.ParseException;
 import japa.parser.ast.CompilationUnit;
+import japa.parser.ast.ImportDeclaration;
 import japa.parser.ast.PackageDeclaration;
+import japa.parser.ast.body.AnnotationDeclaration;
+import japa.parser.ast.body.BodyDeclaration;
 import japa.parser.ast.body.ClassOrInterfaceDeclaration;
+import japa.parser.ast.body.FieldDeclaration;
 import japa.parser.ast.body.MethodDeclaration;
 import japa.parser.ast.body.ModifierSet;
 import japa.parser.ast.body.Parameter;
 import japa.parser.ast.body.TypeDeclaration;
+import japa.parser.ast.body.VariableDeclarator;
+import japa.parser.ast.expr.AnnotationExpr;
 import japa.parser.ast.expr.AssignExpr;
+import japa.parser.ast.expr.BinaryExpr;
 import japa.parser.ast.expr.Expression;
 import japa.parser.ast.expr.FieldAccessExpr;
+import japa.parser.ast.expr.MarkerAnnotationExpr;
+import japa.parser.ast.expr.MemberValuePair;
 import japa.parser.ast.expr.MethodCallExpr;
 import japa.parser.ast.expr.NameExpr;
+import japa.parser.ast.expr.NormalAnnotationExpr;
+import japa.parser.ast.expr.SingleMemberAnnotationExpr;
 import japa.parser.ast.expr.StringLiteralExpr;
 import japa.parser.ast.expr.ThisExpr;
 import japa.parser.ast.expr.AssignExpr.Operator;
 import japa.parser.ast.stmt.BlockStmt;
+import japa.parser.ast.stmt.EmptyStmt;
+import japa.parser.ast.stmt.IfStmt;
 import japa.parser.ast.stmt.ReturnStmt;
 import japa.parser.ast.type.ClassOrInterfaceType;
 import japa.parser.ast.type.Type;
@@ -28,8 +41,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.lang.reflect.Modifier;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.jdo.annotations.Persistent;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -51,17 +68,21 @@ public class MainBuilder {
 		ObjectMapper mapper = Utils.getMapper();
 
 		JsonNode node = mapper.readTree(file);
+		JsonNode models = node.get("models");
 
-		AbstractModel model = AbstractModel.toAbstractModel(node);
-		out.println(createModelAST(model));
-		/*
-		 * out.println("========== Client Code ==========\n");
-		 * out.println(ClientBuilder.toJavaScript(model));
-		 * out.println("========== Server Code ==========\n");
-		 * out.println(ServerBuilder.toJavaCode(model));
-		 * out.println("========== Model  Code ==========\n");
-		 * out.println(ModelBuilder.toJavaCode(model));
-		 */
+		Iterator<JsonNode> modelIter = models.getElements();
+		while (modelIter.hasNext()) {
+			JsonNode modelNode = modelIter.next();
+			
+			AbstractModel model = AbstractModel.toAbstractModel(modelNode);
+			
+			out.println("========== Client Code ==========\n");
+			out.println(ClientBuilder.toJavaScript(model));
+			out.println("========== Server Code ==========\n");
+			out.println(ServerBuilder.toJavaCode(model));
+			out.println("========== Model  Code ==========\n");
+			out.println(ModelBuilder.toJavaCode(model));
+		}
 
 	}
 
@@ -80,68 +101,5 @@ public class MainBuilder {
 		}
 
 		return sb.toString();
-	}
-
-	private static CompilationUnit createModelAST(AbstractModel model)
-			throws ParseException, IOException {
-		CompilationUnit cu = new CompilationUnit();
-		// set the package
-		cu.setPackage(new PackageDeclaration(ASTHelper
-				.createNameExpr("com.data.model")));
-
-		// create the type declaration
-		ClassOrInterfaceDeclaration type = new ClassOrInterfaceDeclaration(
-				ModifierSet.PUBLIC, false, model.getName());
-
-		// create the super class
-		List<ClassOrInterfaceType> extendsList = new LinkedList<ClassOrInterfaceType>();
-		extendsList.add(new ClassOrInterfaceType("DataObject"));
-		type.setExtends(extendsList);
-
-		ASTHelper.addTypeDeclaration(cu, type);
-
-		for (AbstractData data : model.getData()) {
-			ASTHelper.addMember(type,
-					getterMethod(data.getType(), data.getName()));
-			ASTHelper.addMember(type,
-					setterMethod(data.getType(), data.getName()));
-		}
-		
-		return cu;
-	}
-
-	private static MethodDeclaration getterMethod(String typeName, String name) {
-		ClassOrInterfaceType type = new ClassOrInterfaceType(typeName);
-		MethodDeclaration method = new MethodDeclaration(ModifierSet.PUBLIC,
-				type, "get" + capitalize(name));
-		BlockStmt statement = new BlockStmt();
-		Expression thisEx = new ThisExpr();
-		Expression fieldEx = new FieldAccessExpr(thisEx, name);
-		ReturnStmt rStmt = new ReturnStmt(fieldEx);
-
-		ASTHelper.addStmt(statement, rStmt);
-		method.setBody(statement);
-		return method;
-	}
-
-	private static MethodDeclaration setterMethod(String typeName, String name) {
-		ClassOrInterfaceType type = new ClassOrInterfaceType(typeName);
-		MethodDeclaration method = new MethodDeclaration(ModifierSet.PUBLIC,
-				ASTHelper.VOID_TYPE, "set" + capitalize(name));
-		Parameter param = ASTHelper.createParameter(type, name);
-		ASTHelper.addParameter(method, param);
-		BlockStmt statement = new BlockStmt();
-		Expression thisEx = new ThisExpr();
-		Expression fieldEx = new FieldAccessExpr(thisEx, name);
-		Expression assignEx = new AssignExpr(fieldEx, new NameExpr(name),
-				Operator.assign);
-
-		ASTHelper.addStmt(statement, assignEx);
-		method.setBody(statement);
-		return method;
-	}
-
-	public static String capitalize(String line) {
-		return Character.toUpperCase(line.charAt(0)) + line.substring(1);
 	}
 }

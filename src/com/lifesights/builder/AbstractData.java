@@ -37,6 +37,10 @@ public class AbstractData {
 	public void setScope(String scope) {
 		this.scope = scope;
 	}
+	public boolean onServer() {
+		return (BOTH.equals(scope) || SERVER.equals(scope));
+	}
+	
 	@Override
 	public String toString() {
 		return "AbstractData [name=" + name + ", type=" + type + ", scope="

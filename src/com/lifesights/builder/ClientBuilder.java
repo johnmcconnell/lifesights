@@ -85,16 +85,16 @@ public class ClientBuilder {
 				"\t\tconsole.log(data);\n" +
 			"\t});\n" +
 		"}\n";
-	private static String readAPI = "LifeSights.%1$s.read = new function({\n" +
+	private static String readAPI = "LifeSights.%1$s.read = function(){\n" +
 			"\treturn $.getJSON('%2$s/read');\n" +
-			"});\n";
-	private static String readAllAPI = "LifeSights.%1$s.readAll = new function({\n" +
+			"}\n";
+	private static String readAllAPI = "LifeSights.%1$s.readAll = function(){\n" +
 			"\treturn $.getJSON('%2$s/readAll');\n" +
-			"});\n";
-	private static String startNewAPI = "LifeSights.%1$s.new = new function({\n" +
-			"\treturn new Object({";
+			"}\n";
+	private static String startNewAPI = "LifeSights.%1$s.model = function(){\n" +
+			"\treturn new Object({id:'new', updatedOn:Date(), ";
 	private static String vartype = "%s:%s,";
-	private static String endNewAPI = "});\n});\n";
+	private static String endNewAPI = "});\n}\n";
 	private static String[] APIs = new String[] { createAPI, createAllAPI, updateAPI, readAPI, readAllAPI };
 	public static String toJavaScript(AbstractModel model) {
 		StringBuilder sb = new StringBuilder();

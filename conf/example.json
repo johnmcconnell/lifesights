@@ -1,12 +1,21 @@
 {
-	"model":{
+"models":
+		[{
+		"dir":"com.lifesights.example",
 		"name":"Journal",
 		"data":["String:author",
 			"String:title",
-			"Text:something",
+			"Text:markdown",
 			"boolean:published",
 			"List<String>:tags"
 			],
 		"url":"api/model/journal"
-		}
+		}, {
+		"dir":"com.lifesights.example",
+		"name":"User",
+		"data":["String:username",
+			"String:password"
+			],
+		"url":"api/model/user"
+		}]
 }
