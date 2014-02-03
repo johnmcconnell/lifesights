@@ -14,6 +14,8 @@
     <!-- Controller Classes -->
     <bean class="com.lifesights.example.AppController" />
     <bean class="com.lifesights.example.JournalController" />
+    <bean class="com.lifesights.webapp.UserController" />
+    <bean class="com.lifesights.example.RbacRuleController" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

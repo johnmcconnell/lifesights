@@ -1,20 +1,40 @@
 {
 "models":
 		[{
-		"dir":"com.lifesights.example",
+		"dir":"com.lifesights.webapp",
+		"name":"RbacRule",
+		"data":["String:objectId",
+			"String:userId",
+			"Date:timeOfGrant",
+			"String:role"
+			],
+		"url":"api/model/rbacrule"
+		}, {
+		"dir":"com.lifesights.webapp",
 		"name":"Journal",
 		"data":["String:author",
 			"String:title",
-			"Text:markdown",
+			"Text:markup",
 			"boolean:published",
-			"List<String>:tags"
+			"List<Tag>:tags"
 			],
 		"url":"api/model/journal"
 		}, {
-		"dir":"com.lifesights.example",
+		"dir":"com.lifesights.webapp",
 		"name":"User",
 		"data":["String:username",
-			"String:password"
+			"String:password",
+			"int:nonce",
+			"List<String>:roles"
+			],
+		"url":"api/model/user"
+		},  {
+		"dir":"com.lifesights.webapp",
+		"name":"User",
+		"data":["String:username",
+			"String:password",
+			"int:nonce",
+			"List<String>:roles"
 			],
 		"url":"api/model/user"
 		}]

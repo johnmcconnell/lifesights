@@ -14,9 +14,17 @@ LifeSightsApp.Router.map(function() {
 			path : ':id'
 		});
 	});
+	this.resource('home');
 	this.resource('about');
 	this.resource('sign-in');
 	this.resource('sign-up');
+});
+
+LifeSightsApp.IndexRoute = Ember.Route.extend({
+    redirect: function() {
+        // this redirects / to /dashboard
+        this.transitionTo('home');
+    }
 });
 
 LifeSightsApp.JournalEntriesRoute = Ember.Route.extend({

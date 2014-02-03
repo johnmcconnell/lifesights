@@ -22,6 +22,9 @@
 	<script type="text/x-handlebars" id="about">
 		<%@ include file="subviews/AboutView.jsp"%>
 	</script>
+	<script type="text/x-handlebars" id="home">
+		<%@ include file="subviews/HomeView.jsp"%>
+	</script>
 	<script type="text/x-handlebars" id="journal-entries">
 		<%@ include file="subviews/JournalView.jsp"%>
 	</script>

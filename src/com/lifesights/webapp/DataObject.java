@@ -63,20 +63,25 @@ public abstract class DataObject {
 	}
 
 	public void setKey(Key key) {
+		this.id = KeyFactory.keyToString(key);
 		this.key = key;
 	}
 
-	protected String getKey() {
-		return KeyFactory.keyToString(key);
+	protected Key getKey() {
+		if (key == null && id != null) {
+			this.key = KeyFactory.stringToKey(id);
+		}
+		return key;
 	}
 	
 	public void setId(String id) {
+		this.key = KeyFactory.stringToKey(id);
 		this.id = id;
 	}
 	
 	public String getId() {
 		if (id == null && key != null) {
-			this.id = this.getKey();
+			this.id = KeyFactory.keyToString(key);
 		} 
 		return this.id;
 	}
@@ -113,15 +118,14 @@ public abstract class DataObject {
 	 *            the database.
 	 * @return the object that matches the key in the database
 	 */
-	public static <T extends DataObject> T getDetachedObject(Class<T> _class,
-			String key) {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
+	public static <T extends DataObject> T getDetachedObject(final PersistenceManager pm, final Class<T> _class,
+			final String key) {
 		T o, detached = null;
 		try {
 			o = pm.getObjectById(_class, key);
 			detached = pm.detachCopy(o);
 		} finally {
-			pm.close();
+	
 		}
 		return detached;
 	}
@@ -136,8 +140,8 @@ public abstract class DataObject {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T extends DataObject> List<T> getObjects(
-			PersistenceManager pm, Class<T> _class) {
-		Query q = pm.newQuery(_class);
+			final PersistenceManager pm, final Class<T> _class) {
+		final Query q = pm.newQuery(_class);
 		q.setOrdering("updatedOn desc");
 		List<T> o = new ArrayList<T>(0);
 		try {
@@ -158,10 +162,9 @@ public abstract class DataObject {
 	 *         the last time it was updated
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T extends DataObject> List<T> getDetachedObjects(
-			Class<T> _class) {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Query q = pm.newQuery(_class);
+	public static <T extends DataObject> List<T> getDetachedObjects(final PersistenceManager pm,
+			final Class<T> _class) {
+		final Query q = pm.newQuery(_class);
 		q.setOrdering("updatedOn desc");
 		List<T> o = null;
 		List<T> detached = new ArrayList<T>(0);
@@ -170,32 +173,52 @@ public abstract class DataObject {
 			detached = (List<T>) pm.detachCopyAll(o);
 		} finally {
 			q.closeAll();
-			pm.close();
 		}
 		return detached;
 	}
-
+	
 	public TransactionResponse addToDatabase() {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
+		final PersistenceManager pm = PMF.get().getPersistenceManager();
+		final TransactionResponse response = addToDatabase(pm);
+		pm.close();
+		return response;
+	}
+
+	public TransactionResponse addToDatabase(final PersistenceManager pm) {
 		try {
 			pm.makePersistent(this);
+			return new TransactionResponse(this);
+		} catch (Exception e) {
+			return new TransactionResponse(e.getMessage());
+		}
+	}
+
+	public static TransactionResponse addAllToDatabase(final PersistenceManager pm,
+			List<? extends DataObject> objects) {
+		try {
+			pm.makePersistentAll(objects);
 			pm.close();
-			return new TransactionResponse();
+			return new TransactionResponse(objects);
 		} catch (Exception e) {
 			pm.close();
 			return new TransactionResponse(e.getMessage());
 		}
 	}
-
-	public static TransactionResponse addAllToDatabase(
-			List<? extends DataObject> objects) {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
+	
+	public TransactionResponse deleteFromDatabase(final PersistenceManager pm) {
 		try {
-			pm.makePersistentAll(objects);
-			pm.close();
-			return new TransactionResponse();
+			pm.deletePersistent(this);
+			return new TransactionResponse(this);
 		} catch (Exception e) {
-			pm.close();
+			return new TransactionResponse(e.getMessage());
+		}
+	}
+	
+	public static TransactionResponse deleteAllFromDatabase(final PersistenceManager pm, List<? extends DataObject> objects) {
+		try {
+			pm.deletePersistentAll(objects);
+			return new TransactionResponse(objects);
+		} catch (Exception e) {
 			return new TransactionResponse(e.getMessage());
 		}
 	}

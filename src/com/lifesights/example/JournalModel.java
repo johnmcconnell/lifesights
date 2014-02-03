@@ -32,5 +32,36 @@ public class JournalModel extends DataObject {
 		this.published = other.published;
 		this.tags = other.tags;
 	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public Text getSomething() {
+		return something;
+	}
+	public void setSomething(Text something) {
+		this.something = something;
+	}
+	public boolean isPublished() {
+		return published;
+	}
+	public void setPublished(boolean published) {
+		this.published = published;
+	}
+	public List<String> getTags() {
+		return tags;
+	}
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
+	
 }
 

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class TransactionResponse {
 	private Boolean success;
 	private List<?> errors;
+	private DataObject result;
 
 	public TransactionResponse(List<?> errors) {
 		this.success = false;
@@ -19,7 +20,8 @@ public class TransactionResponse {
 		this.errors = errors;
 	}
 	
-	public TransactionResponse() {
+	public TransactionResponse(DataObject o) {
+		this.result = o;
 		this.success = true;
 		this.errors = null;
 	}
@@ -39,4 +41,13 @@ public class TransactionResponse {
 	public void setErrors(List<?> errors) {
 		this.errors = errors;
 	}
+
+	public Object getResult() {
+		return result;
+	}
+
+	public void setResult(DataObject result) {
+		this.result = result;
+	}
+
 }

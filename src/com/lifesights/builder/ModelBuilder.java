@@ -25,7 +25,9 @@ import japa.parser.ast.stmt.IfStmt;
 import japa.parser.ast.stmt.ReturnStmt;
 import japa.parser.ast.type.ClassOrInterfaceType;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Modifier;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,8 +39,13 @@ public class ModelBuilder {
 		return null;
 	}
 	
-	public static String toJavaCode(AbstractModel model) throws ParseException, IOException {
-		return createModelAST(model).toString();
+	public static void printJavaCode(File dir, List<AbstractModel> models) throws ParseException, IOException {
+		for (AbstractModel model : models) {
+			PrintWriter writer = new PrintWriter(new File(dir,model.getName() + ".java"),"UTF-8");
+			writer.println(createModelAST(model).toString());
+			writer.close();
+		}
+		return;
 	}
 	
 	private static CompilationUnit createModelAST(AbstractModel model)

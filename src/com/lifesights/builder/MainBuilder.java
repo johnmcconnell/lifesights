@@ -36,6 +36,7 @@ import japa.parser.ast.stmt.ReturnStmt;
 import japa.parser.ast.type.ClassOrInterfaceType;
 import japa.parser.ast.type.Type;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -56,6 +57,9 @@ import com.lifesights.utils.Utils;
 public class MainBuilder {
 	private static String HELP_MESSAGE = helpMessage();
 	private static PrintStream out = System.out;
+	private static File serverDir = new File("server");
+	private static File modelDir = new File("model");
+	private static File jsDir = new File("js");
 
 	public static void main(String[] args) throws Exception {
 		if (args.length < 2) {
@@ -68,21 +72,27 @@ public class MainBuilder {
 		ObjectMapper mapper = Utils.getMapper();
 
 		JsonNode node = mapper.readTree(file);
-		JsonNode models = node.get("models");
 
-		Iterator<JsonNode> modelIter = models.getElements();
-		while (modelIter.hasNext()) {
-			JsonNode modelNode = modelIter.next();
+		// iterator over model schema
+		Iterator<JsonNode> modelIter = node.get("models").getElements();
+		List<AbstractModel> models = new LinkedList<AbstractModel>();
+		int x = 0;
+		for(JsonNode modelNode = modelIter.next(); modelIter.hasNext(); modelNode = modelIter.next()) {
+			models.add(AbstractModel.toAbstractModel(modelNode));
 			
-			AbstractModel model = AbstractModel.toAbstractModel(modelNode);
+			out.println(models.get(x));
+			x++;
 			
-			out.println("========== Client Code ==========\n");
-			out.println(ClientBuilder.toJavaScript(model));
-			out.println("========== Server Code ==========\n");
-			out.println(ServerBuilder.toJavaCode(model));
-			out.println("========== Model  Code ==========\n");
-			out.println(ModelBuilder.toJavaCode(model));
 		}
+		
+		out.println("printing server");
+		ServerBuilder.printJavaCode(serverDir,models);
+		out.println("printing model");
+		ModelBuilder.printJavaCode(modelDir,models);
+		out.println("printing client");
+		ClientBuilder.printJavaScript(jsDir,models);
+		
+		out.println("done!");
 
 	}
 

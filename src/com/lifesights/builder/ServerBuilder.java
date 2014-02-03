@@ -1,6 +1,8 @@
 package com.lifesights.builder;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,23 +32,22 @@ import japa.parser.ast.type.ClassOrInterfaceType;
 import japa.parser.ast.type.Type;
 
 public class ServerBuilder {
-	private static String serverCode = "@Controller\n"
-			+ "@RequestMapping(%1$sController.BASE_URL)\n"
-			+ "public class %1$sController extends DataController<%1$s> {\n"
-			+ "\tpublic static final Class<%1$s> CLASS = %1$s.class;\n"
-			+ "\tpublic static final String BASE_URL = \"%2$s\";\n" +
-
-			"\tpublic %1$sController() {\n" + "\t\tsuper(CLASS);\n" + "\t}\n"
-			+ "}\n";
 	private static ClassOrInterfaceType superType = new ClassOrInterfaceType(
 			"DataObject");
 	static {
 		superType.setTypeArgs(new LinkedList<Type>());
 	}
 
-	public static String toJavaCode(AbstractModel model) throws ParseException,
+	public static void printJavaCode(File dir, List<AbstractModel> models) throws ParseException,
 			IOException {
-		return createModelAST(model).toString();
+		
+		for (AbstractModel model : models) {
+			PrintWriter writer = new PrintWriter(new File(dir,model.getName() + ".java"),"UTF-8");
+			writer.println(createModelAST(model).toString());
+			writer.close();
+		}
+
+		return;
 	}
 
 	private static CompilationUnit createModelAST(AbstractModel model)
@@ -93,15 +94,16 @@ public class ServerBuilder {
 		List<BodyDeclaration> body = new LinkedList<BodyDeclaration>();
 
 		VariableDeclarator dec = new VariableDeclarator(new VariableDeclaratorId("CLASS"), new NameExpr(model.getName() + ".class"));
-		FieldDeclaration ClassField = ASTHelper.createFieldDeclaration(
+		FieldDeclaration classField = ASTHelper.createFieldDeclaration(
 				ModifierSet.STATIC + ModifierSet.PUBLIC + ModifierSet.FINAL,
 				new ClassOrInterfaceType("String"), dec);
+		body.add(classField);
 		
 		VariableDeclarator urlDec = new VariableDeclarator(new VariableDeclaratorId("BASE_URL"), new StringLiteralExpr(model.getUrl()));
-		FieldDeclaration decClassField = ASTHelper.createFieldDeclaration(
+		FieldDeclaration decUrlField = ASTHelper.createFieldDeclaration(
 				ModifierSet.STATIC + ModifierSet.PUBLIC + ModifierSet.FINAL,
-				new ClassOrInterfaceType("String"), dec);
-		body.add(decClassField);
+				new ClassOrInterfaceType("String"), urlDec);
+		body.add(decUrlField);
 		
 		ConstructorDeclaration con = new ConstructorDeclaration(ModifierSet.PUBLIC, className);
 		BlockStmt conBlock = new BlockStmt();
