@@ -167,7 +167,7 @@ public class ModelBuilder {
 		
 		// if class equal statement
 		MethodCallExpr fromClassMethod = new MethodCallExpr(fromName,"getClass");
-		MethodCallExpr thisClassMethod = new MethodCallExpr(fromName,"getClass");
+		MethodCallExpr thisClassMethod = new MethodCallExpr(thisEx,"getClass");
 		BinaryExpr isNotEqual = new BinaryExpr(fromClassMethod, thisClassMethod, BinaryExpr.Operator.notEquals);
 		BlockStmt returnBlock = new BlockStmt();
 		ASTHelper.addStmt(returnBlock, new ReturnStmt());

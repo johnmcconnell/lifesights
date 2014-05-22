@@ -1,7 +1,7 @@
 {
 "models":
 		[{
-		"dir":"com.lifesights.webapp",
+		"dir":"com.mcconnell.blog.models",
 		"name":"RbacRule",
 		"data":["String:objectId",
 			"String:userId",
@@ -10,32 +10,41 @@
 			],
 		"url":"api/model/rbacrule"
 		}, {
-		"dir":"com.lifesights.webapp",
-		"name":"Journal",
+		"dir":"com.mcconnell.blog.models",
+		"name":"Entry",
 		"data":["String:author",
 			"String:title",
 			"Text:markup",
 			"boolean:published",
-			"List<Tag>:tags"
+			"List<Tag>:tags",
+			"List<Comment>:comments"
 			],
 		"url":"api/model/journal"
 		}, {
-		"dir":"com.lifesights.webapp",
+		"dir":"com.mcconnell.blog.models",
 		"name":"User",
 		"data":["String:username",
 			"String:password",
-			"int:nonce",
+			"String:hash",
 			"List<String>:roles"
 			],
 		"url":"api/model/user"
-		},  {
-		"dir":"com.lifesights.webapp",
-		"name":"User",
+		}, {
+		"dir":"com.mcconnell.blog.models",
+		"name":"Comment",
 		"data":["String:username",
-			"String:password",
-			"int:nonce",
-			"List<String>:roles"
-			],
+			"String:content"],
+		"url":"api/model/comment"
+		}, {
+		"dir":"com.mcconnell.blog.models",
+		"name":"Tag",
+		"data":["String:value"],
+		"url":"api/model/tag"
+		}, {
+		"dir":"com.mcconnell.blog.models",
+		"name":"Comment",
+		"data":["String:username",
+			"String:content"],
 		"url":"api/model/user"
 		}]
 }

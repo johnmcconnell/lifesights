@@ -198,7 +198,7 @@ public abstract class DataObject {
 		try {
 			pm.makePersistentAll(objects);
 			pm.close();
-			return new TransactionResponse(objects);
+			return new TransactionResponse((List<DataObject>)  objects);
 		} catch (Exception e) {
 			pm.close();
 			return new TransactionResponse(e.getMessage());
@@ -217,7 +217,7 @@ public abstract class DataObject {
 	public static TransactionResponse deleteAllFromDatabase(final PersistenceManager pm, List<? extends DataObject> objects) {
 		try {
 			pm.deletePersistentAll(objects);
-			return new TransactionResponse(objects);
+			return new TransactionResponse((List<DataObject>) objects);
 		} catch (Exception e) {
 			return new TransactionResponse(e.getMessage());
 		}

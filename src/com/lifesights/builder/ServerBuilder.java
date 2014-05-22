@@ -33,16 +33,13 @@ import japa.parser.ast.type.Type;
 
 public class ServerBuilder {
 	private static ClassOrInterfaceType superType = new ClassOrInterfaceType(
-			"DataObject");
-	static {
-		superType.setTypeArgs(new LinkedList<Type>());
-	}
+			"DataController");
 
 	public static void printJavaCode(File dir, List<AbstractModel> models) throws ParseException,
 			IOException {
 		
 		for (AbstractModel model : models) {
-			PrintWriter writer = new PrintWriter(new File(dir,model.getName() + ".java"),"UTF-8");
+			PrintWriter writer = new PrintWriter(new File(dir,model.getName() + "Controller.java"),"UTF-8");
 			writer.println(createModelAST(model).toString());
 			writer.close();
 		}
@@ -64,6 +61,7 @@ public class ServerBuilder {
 
 		// extend the super class
 		List<ClassOrInterfaceType> extendsList = new LinkedList<ClassOrInterfaceType>();
+		superType.setTypeArgs(new LinkedList<Type>());
 		superType.getTypeArgs().add(new ClassOrInterfaceType(model.getName()));
 		extendsList.add(superType);
 		type.setExtends(extendsList);

@@ -24,7 +24,7 @@ public abstract class DataController<T extends DataObject> {
 	public static final String GRANTL_URL = "grantAll";
 	private final Class<T> CLASS;
 
-	public DataController(final Class<T> _class) {
+	public DataController(final Class<T> _class){
 		this.CLASS = _class;
 	}
 
@@ -66,7 +66,7 @@ public abstract class DataController<T extends DataObject> {
 		final PersistenceManager pm = PMF.get().getPersistenceManager();
 		List<T> objects = DataObject.getDetachedObjects(pm, CLASS);
 		pm.close();
-		TransactionResponse response = new TransactionResponse(objects);
+		TransactionResponse response = new TransactionResponse((List<DataObject>)objects);
 		return response;
 	}
 

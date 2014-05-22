@@ -6,9 +6,9 @@ import java.util.ArrayList;
 public class TransactionResponse {
 	private Boolean success;
 	private List<?> errors;
-	private DataObject result;
+	private List<DataObject> result;
 
-	public TransactionResponse(List<?> errors) {
+	public TransactionResponse(List<?> errors, boolean dummy) {
 		this.success = false;
 		this.errors = errors;
 	}
@@ -21,10 +21,18 @@ public class TransactionResponse {
 	}
 	
 	public TransactionResponse(DataObject o) {
-		this.result = o;
+		List<DataObject> os = new ArrayList<DataObject>(1);
+		os.add(o);
+		this.result = os;
 		this.success = true;
 		this.errors = null;
 	}
+	public TransactionResponse(List<DataObject> os) {
+		this.result = os;
+		this.success = true;
+		this.errors = null;
+	}
+
 
 	public Boolean getSuccess() {
 		return success;
@@ -42,11 +50,11 @@ public class TransactionResponse {
 		this.errors = errors;
 	}
 
-	public Object getResult() {
+	public List<DataObject> getResult() {
 		return result;
 	}
 
-	public void setResult(DataObject result) {
+	public void setResult(List<DataObject> result) {
 		this.result = result;
 	}
 
